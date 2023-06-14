@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shcool/pages/home/abas/afazeres_tab.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
     ];
 
     final List<Widget> _conteudos = [
-      const Text('home'),
+      const AfazeresTab(valorInicial: 8),
       const Text('perfil'),
     ];
 
