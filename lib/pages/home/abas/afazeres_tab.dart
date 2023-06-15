@@ -1,12 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:shcool/components/spacer_component.dart';
 
 class AfazeresTab extends StatefulWidget {
   final int valorInicial;
+  final void Function(int tabIndx)? callback;
 
-  const AfazeresTab({super.key, required this.valorInicial});
+  const AfazeresTab({super.key, required this.valorInicial, this.callback});
 
   @override
   State createState() => _AfazeresTab();
@@ -19,6 +18,12 @@ class _AfazeresTab extends State<AfazeresTab> {
     setState(() {
       acumulador++;
     });
+  }
+
+  void handleCallBack() {
+    if (widget.callback != null) {
+      widget.callback!(1);
+    }
   }
 
   @override
@@ -38,6 +43,8 @@ class _AfazeresTab extends State<AfazeresTab> {
               somarMaisUm();
             },
             child: const Text('+1')),
+        const SpacerComponent(),
+        ElevatedButton(onPressed: handleCallBack, child: const Text('data')),
       ],
     );
   }
