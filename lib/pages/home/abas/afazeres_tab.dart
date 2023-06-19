@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shcool/components/icon_button_compoment.dart';
 import 'package:shcool/components/spacer_component.dart';
 import 'package:shcool/entities/afazer_entity.dart';
-
-import '../../../components/custom_card_list_component.dart';
+import 'package:shcool/pages/home/components/item_widget.dart';
 
 class AfazeresTab extends StatefulWidget {
   const AfazeresTab({
@@ -16,14 +14,6 @@ class AfazeresTab extends StatefulWidget {
 
 class _AfazeresTab extends State<AfazeresTab> {
   late List<AfazerEntity> _listaAfazeres;
-
-  void handleExcluir(int index) {
-    _listaAfazeres.removeAt(index);
-
-    setState(() {
-      _listaAfazeres = _listaAfazeres;
-    });
-  }
 
   void handleAdicionar() {
     final item = AfazerEntity(
@@ -41,9 +31,15 @@ class _AfazeresTab extends State<AfazeresTab> {
     });
   }
 
+  void handleExcluir(int index) {
+    _listaAfazeres.removeAt(index);
+    setState(() {
+      _listaAfazeres = _listaAfazeres;
+    });
+  }
+
   @override
   void initState() {
-    super.initState();
     _listaAfazeres = [
       AfazerEntity(
         uuid: 'teste1',
@@ -60,25 +56,24 @@ class _AfazeresTab extends State<AfazeresTab> {
         isConcluido: true,
       ),
     ];
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ElevatedButton(
-        onPressed: () {
-          handleAdicionar();
-        },
-        child: const Text('Adicionar'),
-      ),
-      SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 400,
-        child: ListView.builder(
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: handleAdicionar,
+          child: const Text('Adicionar'),
+        ),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: 400,
+          child: ListView.builder(
             itemCount: _listaAfazeres.length,
             itemBuilder: (context, index) {
               final item = _listaAfazeres.elementAt(index);
-              final isConcluido = item.isConcluido ?? false;
               return Dismissible(
                 key: Key(item.uuid),
                 onDismissed: (direction) {
@@ -86,15 +81,18 @@ class _AfazeresTab extends State<AfazeresTab> {
                     handleExcluir(index);
                   }
                 },
-                child: CustomCardListItem(
-                  icon: isConcluido ? Icons.done_all : Icons.done,
-                  iconColor: isConcluido ? Colors.green : Colors.grey,
-                  title: item.titulo,
+                child: ItemWidget(
+                  item: item,
+                  onPressed: () {
+                    handleAdicionar();
+                  },
                 ),
               );
-            }),
-      ),
-      const SpacerComponent(),
-    ]);
+            },
+          ),
+        ),
+        const SpacerComponent(),
+      ],
+    );
   }
 }
