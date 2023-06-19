@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final List<Widget> _conteudos = [
-    const AfazeresTab(valorInicial: 8),
+    const AfazeresTab(),
     const PerfilTab(),
   ];
 

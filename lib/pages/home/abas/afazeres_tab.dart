@@ -1,51 +1,100 @@
 import 'package:flutter/material.dart';
+import 'package:shcool/components/icon_button_compoment.dart';
 import 'package:shcool/components/spacer_component.dart';
+import 'package:shcool/entities/afazer_entity.dart';
+
+import '../../../components/custom_card_list_component.dart';
 
 class AfazeresTab extends StatefulWidget {
-  final int valorInicial;
-  final void Function(int tabIndx)? callback;
-
-  const AfazeresTab({super.key, required this.valorInicial, this.callback});
+  const AfazeresTab({
+    super.key,
+  });
 
   @override
   State createState() => _AfazeresTab();
 }
 
 class _AfazeresTab extends State<AfazeresTab> {
-  late int acumulador;
+  late List<AfazerEntity> _listaAfazeres;
 
-  void somarMaisUm() {
+  void handleExcluir(int index) {
+    _listaAfazeres.removeAt(index);
+
     setState(() {
-      acumulador++;
+      _listaAfazeres = _listaAfazeres;
     });
   }
 
-  void handleCallBack() {
-    if (widget.callback != null) {
-      widget.callback!(1);
-    }
+  void handleAdicionar() {
+    final item = AfazerEntity(
+      uuid: 'teste3',
+      titulo: 'Teste 3',
+      dataInicio: DateTime.now(),
+      dataFim: DateTime.now(),
+      isConcluido: false,
+    );
+
+    _listaAfazeres.add(item);
+
+    setState(() {
+      _listaAfazeres = _listaAfazeres;
+    });
   }
 
   @override
   void initState() {
-    acumulador = widget.valorInicial;
     super.initState();
+    _listaAfazeres = [
+      AfazerEntity(
+        uuid: 'teste1',
+        titulo: 'Teste 1',
+        dataInicio: DateTime.now(),
+        dataFim: DateTime.now(),
+        isConcluido: false,
+      ),
+      AfazerEntity(
+        uuid: 'teste2',
+        titulo: 'Teste 2',
+        dataInicio: DateTime.now(),
+        dataFim: DateTime.now(),
+        isConcluido: true,
+      ),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('$acumulador'),
-        const SpacerComponent(),
-        ElevatedButton(
-            onPressed: () {
-              somarMaisUm();
-            },
-            child: const Text('+1')),
-        const SpacerComponent(),
-        ElevatedButton(onPressed: handleCallBack, child: const Text('data')),
-      ],
-    );
+    return Column(children: [
+      ElevatedButton(
+        onPressed: () {
+          handleAdicionar();
+        },
+        child: const Text('Adicionar'),
+      ),
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 400,
+        child: ListView.builder(
+            itemCount: _listaAfazeres.length,
+            itemBuilder: (context, index) {
+              final item = _listaAfazeres.elementAt(index);
+              final isConcluido = item.isConcluido ?? false;
+              return Dismissible(
+                key: Key(item.uuid),
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    handleExcluir(index);
+                  }
+                },
+                child: CustomCardListItem(
+                  icon: isConcluido ? Icons.done_all : Icons.done,
+                  iconColor: isConcluido ? Colors.green : Colors.grey,
+                  title: item.titulo,
+                ),
+              );
+            }),
+      ),
+      const SpacerComponent(),
+    ]);
   }
 }
