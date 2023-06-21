@@ -1,4 +1,4 @@
-import 'afazer_checklist_entitu.dart';
+import 'afazer_checklist_enty.dart';
 
 class AfazerEntity {
   String uuid;

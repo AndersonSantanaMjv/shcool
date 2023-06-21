@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shcool/pages/home/abas/afazeres_tab.dart';
+
 import '../../components/app_bar_component.dart';
+import 'abas/afazes_tab.dart';
 import 'abas/perfil_tab.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +16,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<BottomNavigationBarItem> _abas = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle), label: 'Perfil'),
+    const BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
   ];
 
   final List<Widget> _conteudos = [
@@ -42,9 +42,9 @@ class _HomePageState extends State<HomePage> {
       appBar: const AppBarComponent(),
       body: _conteudos.elementAt(abaSelecionada),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: handleTab,
-        items: _abas,
         currentIndex: abaSelecionada,
+        items: _abas,
+        onTap: handleTab,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -4,9 +4,9 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   final String titulo;
 
   const AppBarComponent({
-    Key? key,
-    this.titulo = 'School: Anderson Santana',
-  }) : super(key: key);
+    super.key,
+    this.titulo = 'School',
+  });
 
   static Size get size => const Size.fromHeight(kToolbarHeight);
 

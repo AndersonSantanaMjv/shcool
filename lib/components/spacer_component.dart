@@ -5,12 +5,12 @@ class SpacerComponent extends StatelessWidget {
   final bool isFull;
   final bool isHorizontal;
 
-  const SpacerComponent(
-      {Key? key,
-      this.size = 16,
-      this.isFull = false,
-      this.isHorizontal = false})
-      : super(key: key);
+  const SpacerComponent({
+    Key? key,
+    this.size = 16,
+    this.isFull = false,
+    this.isHorizontal = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

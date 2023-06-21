@@ -4,6 +4,6 @@ class AfazerChecklistEntity {
 
   AfazerChecklistEntity({
     required this.titulo,
-    required this.isChecked,
+    this.isChecked = false,
   });
 }
