@@ -5,6 +5,8 @@ import 'package:shcool/entities/afazer_entity.dart';
 import 'package:shcool/pages/home/components/item_widget.dart';
 import 'package:shcool/pages/home/components/novo_item_widget.dart';
 
+import '../../../services/afazer_service.dart';
+
 class AfazeresTab extends StatefulWidget {
   const AfazeresTab({
     super.key,
@@ -16,6 +18,7 @@ class AfazeresTab extends StatefulWidget {
 
 class _AfazeresTab extends State<AfazeresTab> {
   late List<AfazerEntity> _listaAfazeres;
+  final service = AfazerService();
 
   void handleAdicionar() {
     showDialog(
@@ -26,6 +29,7 @@ class _AfazeresTab extends State<AfazeresTab> {
           children: [
             NovoItemWidget(callback: (item) {
               _listaAfazeres.add(item);
+              service.salvar(_listaAfazeres);
               setState(() {
                 _listaAfazeres = _listaAfazeres;
               });

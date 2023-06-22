@@ -3,6 +3,7 @@ import 'package:shcool/components/icon_button_component.dart';
 import 'package:shcool/components/spacer_component.dart';
 import 'package:shcool/entities/afazer_checklist_enty.dart';
 import 'package:shcool/entities/afazer_entity.dart';
+import 'package:uuid/uuid.dart';
 
 class NovoItemWidget extends StatefulWidget {
   final void Function(AfazerEntity item) callback;
@@ -33,9 +34,12 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
     return CheckboxListTile(
       title: TextFormField(
         controller: controller,
-        decoration: const InputDecoration(hintText: 'Digite um nome para a tarefa'),
+        decoration:
+            const InputDecoration(hintText: 'Digite um nome para a tarefa'),
         validator: (value) {
-          return (value == null || value.isEmpty) ? 'Por favor, digite um nome' : null;
+          return (value == null || value.isEmpty)
+              ? 'Por favor, digite um nome'
+              : null;
         },
       ),
       controlAffinity: ListTileControlAffinity.leading,
@@ -48,8 +52,9 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
   void handleSubmit() {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
+      print(const Uuid().v4());
       final item = AfazerEntity(
-        uuid: 'xpto',
+        uuid: const Uuid().v4(),
         titulo: _titleController.text,
         dataInicio: DateTime.now(),
         dataFim: DateTime.now(),
