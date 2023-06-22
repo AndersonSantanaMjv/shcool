@@ -34,6 +34,8 @@ class _AfazeresTab extends State<AfazeresTab> {
     );
   }
 
+//Teste de GIT
+
   void handleExcluir(int index) {
     // _listaAfazeres.removeAt(index);
     // setState(() {
