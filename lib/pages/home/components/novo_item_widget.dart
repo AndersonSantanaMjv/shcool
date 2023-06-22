@@ -34,12 +34,9 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
     return CheckboxListTile(
       title: TextFormField(
         controller: controller,
-        decoration:
-            const InputDecoration(hintText: 'Digite um nome para a tarefa'),
+        decoration: const InputDecoration(hintText: 'Digite um nome para a tarefa'),
         validator: (value) {
-          return (value == null || value.isEmpty)
-              ? 'Por favor, digite um nome'
-              : null;
+          return (value == null || value.isEmpty) ? 'Por favor, digite um nome' : null;
         },
       ),
       controlAffinity: ListTileControlAffinity.leading,
@@ -52,7 +49,6 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
   void handleSubmit() {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
-      print(const Uuid().v4());
       final item = AfazerEntity(
         uuid: const Uuid().v4(),
         titulo: _titleController.text,
